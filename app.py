@@ -29,13 +29,11 @@ def services(methods=["GET"]):
 
 @app.route("/service/<id>")
 def service(id, methods=["GET"]):
-    data = []
     with closing(db_conn()) as conn:
         cur = conn.cursor()
         cur.execute(f"SELECT * FROM services WHERE id={id}")
         for row in cur.fetchall():
-            data.append(dict(row))
-    return jsonify(data)
+            return jsonify(dict(row))
     
 
 if __name__ == "__main__":
